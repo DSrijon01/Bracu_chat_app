@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "102115155043",
+    "firebase_url": "https://app-for-brac.firebaseio.com",
+    "project_id": "app-for-brac",
+    "storage_bucket": "app-for-brac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102115155043:android:6c718f062124b8c43f6c56",
+        "android_client_info": {
+          "package_name": "com.example.appforbrac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102115155043-vgga6npp044ugi6biam6hs5dr9tvor06.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appforbrac",
+            "certificate_hash": "52256c411e877d7dd58ea6faf5c5f68c3b76025a"
+          }
+        },
+        {
+          "client_id": "102115155043-98ul298uhrv95egm6e270vtpa12dk9l9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhrTiIiEXdGAI8iRsxoyJZQ19gc2BSO4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102115155043-98ul298uhrv95egm6e270vtpa12dk9l9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
