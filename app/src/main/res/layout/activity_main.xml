@@ -14,4 +14,40 @@
 
      </include>
 
+    <Button
+        android:id="@+id/login"
+        android:layout_width="231dp"
+        android:layout_height="65dp"
+        android:layout_above="@+id/register"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="77dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="47dp"
+        android:text="login"
+        app:layout_constraintBottom_toTopOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.778" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="230dp"
+        android:layout_height="62dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="89dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="298dp"
+        android:text="Register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </RelativeLayout>
