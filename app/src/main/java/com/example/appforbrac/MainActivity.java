@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
-       setSupportActionBar(mToolbar);
-       getSupportActionBar().setTitle("BRACU");
+       //setSupportActionBar(mToolbar);
+       //getSupportActionBar().setTitle("BRACU");
 
         login = findViewById(R.id.login);
         register= findViewById(R.id.register);

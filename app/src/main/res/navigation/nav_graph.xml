@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/showCourse">
+
+    <fragment
+        android:id="@+id/showCourse"
+        android:name="com.example.appforbrac.showCourse"
+        android:label="fragment_show_course"
+        tools:layout="@layout/fragment_show_course" />
+    <fragment
+        android:id="@+id/addedCourse"
+        android:name="com.example.appforbrac.addedCourse"
+        android:label="fragment_added_course"
+        tools:layout="@layout/fragment_added_course" />
+</navigation>

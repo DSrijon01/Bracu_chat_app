@@ -6,17 +6,21 @@ public class course {
     private String faculty;
 
 
-    private String key;
+    private int key;
     private String name;
 
-    public course(String n, String k, String f)
+    public course(String faculty, int key, String name)
     {
-        faculty= f;
-        key = k;
-        name = n;
+        this.faculty= faculty;
+        this.key = key;
+        this.name = name;
     }
-    public String getKey() {
-        return key;
+    public course()
+    {
+
+    }
+    public int getKey() {
+       return key;
     }
 
     public String getName() {
