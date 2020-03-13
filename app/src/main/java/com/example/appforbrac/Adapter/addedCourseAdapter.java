@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appforbrac.Model.Student;
 import com.example.appforbrac.Model.course;
 import com.example.appforbrac.R;
+import com.example.appforbrac.chatApp.main;
 import com.example.appforbrac.whatsApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -81,7 +82,7 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
         reference.setValue(hashMap);
 
 
-       Intent i = new Intent(mContext, whatsApp.class );
+       Intent i = new Intent(mContext, main.class );
         i.putExtra("name",name);
         mContext.startActivity(i);
     }
