@@ -40,9 +40,9 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("BRACU");
+        //mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
+        //setSupportActionBar(mToolbar);
+        //getSupportActionBar().setTitle("BRACU");
 
 
         username = findViewById(R.id.username);
