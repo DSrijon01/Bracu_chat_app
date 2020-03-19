@@ -37,9 +37,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("BRACU");
+        //mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
+        //setSupportActionBar(mToolbar);
+        //getSupportActionBar().setTitle("BRACU");
 
         email = findViewById(R.id.email);
         login = findViewById(R.id.login);

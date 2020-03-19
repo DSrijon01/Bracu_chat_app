@@ -1,13 +1,24 @@
 package com.example.appforbrac.chatApp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.appforbrac.LoginActivity;
 import com.example.appforbrac.R;
+import com.example.appforbrac.chatApp.fragments.SettingsActivity;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.EmailAuthCredential;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.OAuthProvider;
+
+import static com.example.appforbrac.R.menu.bottom_navigation;
 
 public class main extends AppCompatActivity {
 
@@ -16,8 +27,7 @@ public class main extends AppCompatActivity {
     private ViewPager myViewpager;
     private TabLayout myTabLayout;
     private TabsAcessorAdapter myTabsAccessorAdapter;
-
-
+    FirebaseAuth auth;
 
 
 
@@ -27,20 +37,63 @@ public class main extends AppCompatActivity {
         setContentView(R.layout.activity_chat_main);
 
 
-      //  mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
+        //  mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
 //        setSupportActionBar(mToolbar);
-       // getSupportActionBar().setTitle("BRACU");
+        // getSupportActionBar().setTitle("BRACU");
 
-
-        myViewpager = (ViewPager) findViewById(R.id.main_tabs_pager);
+        auth = FirebaseAuth.getInstance();
+        myViewpager = findViewById(R.id.main_tabs_pager);
         myTabsAccessorAdapter = new TabsAcessorAdapter(getSupportFragmentManager());
         myViewpager.setAdapter(myTabsAccessorAdapter);
-        myTabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        myTabLayout = findViewById(R.id.main_tabs);
         myTabLayout.setupWithViewPager(myViewpager);
-
-
 
 
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+         super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate (R.menu.options_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+         super.onOptionsItemSelected(item);
+
+         if (item.getItemId()==R.id.main_logout_option){
+
+             auth.signOut();
+             SendUserToLoginActivity();
+
+         }
+
+        if (item.getItemId()==R.id.main_Settings_option) {
+
+             SendUserToSettingsActivity();
+        }
+
+        if (item.getItemId()==R.id.main_find_People) {
+
+
+        }
+        return true;
+
+    }
+
+    private void SendUserToLoginActivity()
+    {
+        Intent loginIntent = new Intent(main.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+
+    }
+    private void SendUserToSettingsActivity() {
+        Intent SettingIntent = new Intent(main.this, SettingsActivity.class);
+        startActivity(SettingIntent);
+    }
 }
