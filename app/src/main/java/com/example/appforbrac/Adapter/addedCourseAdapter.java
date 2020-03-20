@@ -36,6 +36,8 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
     String test="Nope";
     Student student;
     private FirebaseUser firebaseUser;
+    public Bundle bundle = new Bundle();
+
     DatabaseReference reference;
     public addedCourseAdapter(Context mContext, List<course> mCourse)
     {
@@ -86,12 +88,12 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
 
        Intent i = new Intent(mContext, main.class );
         i.putExtra("name",name);
-
-        Bundle bundle = new Bundle();
-        bundle.putString("name", name);
-        People_Fragments myFrag = new People_Fragments();
-        myFrag.setArguments(bundle);
         mContext.startActivity(i);
+
+       // bundle.putString("name", name);
+        //People_Fragments myFrag = new People_Fragments();
+        //myFrag.setArguments(bundle);
+
 
 
     }

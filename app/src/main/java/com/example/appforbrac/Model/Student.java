@@ -1,7 +1,7 @@
 package com.example.appforbrac.Model;
 
 public class Student {
-    private String id;
+    private String id ="a";
     private String username;
     private String fullname;
     private String imageurl;

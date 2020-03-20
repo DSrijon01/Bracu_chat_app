@@ -98,12 +98,9 @@ public class showCourse extends Fragment {
         View view = inflater.inflate(R.layout.fragment_show_course,container,false);
 
         recyclerView = view.findViewById(R.id.rec);
-        Student tst = s;
         courseList = new ArrayList<>();
         readCourse();
-        //readDet();
-       // String string = Settings.Secure.getString( getContentResolver(), Settings.Secure.ANDROID_ID);
-        courseAdapter= new courseAdapter(  getContext(), courseList,stdList,tst);
+        courseAdapter= new courseAdapter(  getContext(), courseList,stdList);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -111,42 +108,8 @@ public class showCourse extends Fragment {
         return view;
     }
 
-    private void readDet() {
-
-       final String uid = auth.getCurrentUser().getUid();
-
-        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                s = dataSnapshot.child("Students").child(uid).getValue(Student.class);
-
-               // reference.child("test").setValue(s.getFullname());
-
-                courseAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-       // test();
-
-
-    }
-    private void test() {
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("test");
-        //Student st = stdList.get(1);
-
-        HashMap<String, Object> profileMap = new HashMap<>();
-        //profileMap.put("name", setUserName);
-        profileMap.put("status", courseList.get(0).getFaculty());
-        ref.child("test").updateChildren(profileMap);
-    }
     private void readCourse()
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Courses");

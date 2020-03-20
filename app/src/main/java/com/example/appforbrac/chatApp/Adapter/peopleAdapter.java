@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.List;
+import java.util.Objects;
 
 public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder> {
     public Context mContext;
@@ -30,6 +31,8 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
     Student student;
     private FirebaseUser firebaseUser;
     DatabaseReference reference;
+
+    FirebaseAuth auth;
 
     public peopleAdapter(Context mContext, List<Student> mStd)
     {
@@ -49,8 +52,21 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull peopleAdapter.ViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
+       auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userid = firebaseUser.getUid();
         final Student std = mStd.get(position);
+
+        TextView textView = holder.txt;
+        textView.setText(std.getFullname());
+
+       String id = std.getId();
+
+        if(userid.equalsIgnoreCase(id))
+        {
+            holder.itemView.setVisibility(View.GONE);
+        }
+
 
     }
 
@@ -73,6 +89,7 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
 
             btn.setVisibility(itemView.GONE);
 
+            //itemView.setVisibility(View.GONE);
 
         }
 

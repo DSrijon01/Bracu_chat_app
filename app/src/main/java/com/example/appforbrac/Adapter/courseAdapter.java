@@ -47,7 +47,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
     private FirebaseUser firebaseUser;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     DatabaseReference reference;
-    public courseAdapter(Context mContext, List<course> mCourse, List<Student> std, Student s)
+    public courseAdapter(Context mContext, List<course> mCourse, List<Student> std)
     {
         this.mContext=mContext;
         this.mCourse= mCourse;
@@ -101,6 +101,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("fullname",sdet.getFullname());
+                hashMap.put("id",sdet.getId());
                 reference.setValue(hashMap);
                 //stdCount++;
             }

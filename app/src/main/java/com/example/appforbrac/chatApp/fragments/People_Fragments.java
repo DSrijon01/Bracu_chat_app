@@ -64,13 +64,14 @@ public class People_Fragments extends Fragment {
 
         recyclerView = view.findViewById(R.id.rec2);
 
-         myStr = getArguments().getString("my_key");
+            myStr = getArguments().getString("name");
          Rootref = FirebaseDatabase.getInstance().getReference();
 
 
         stdList = new ArrayList<>();
+
+        test();
         readStd();
-        //test();
         stdAdapter= new peopleAdapter(  getContext(), stdList);
         recyclerView.setAdapter(stdAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -84,15 +85,15 @@ public class People_Fragments extends Fragment {
         HashMap<String, Object> profileMap = new HashMap<>();
         //profileMap.put("name", setUserName);
         profileMap.put("status", myStr);
-        Rootref.child("test").updateChildren(profileMap);
+        Rootref.child("frag").updateChildren(profileMap);
     }
 
     private void readStd() {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        String userid = firebaseUser.getUid();
+        final String userid = firebaseUser.getUid();
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Courses").child(myStr);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Courses").child(myStr).child("StudentList");
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -100,7 +101,9 @@ public class People_Fragments extends Fragment {
                 stdList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Student c = snapshot.getValue(Student.class);
-                    stdList.add(c);
+                        stdList.add(c);
+
+
 
                 }
 

@@ -1,5 +1,7 @@
 package com.example.appforbrac.chatApp;
 
+import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -11,9 +13,13 @@ import com.example.appforbrac.chatApp.fragments.People_Fragments;
 
 public class TabsAcessorAdapter extends FragmentPagerAdapter {
 
+    String myStr;
+    public Bundle bundle = new Bundle();
 
-    public TabsAcessorAdapter(FragmentManager fm) {
+
+    public TabsAcessorAdapter(FragmentManager fm, String myStr) {
         super(fm);
+        this.myStr=myStr;
     }
 
     @Override
@@ -31,7 +37,9 @@ public class TabsAcessorAdapter extends FragmentPagerAdapter {
 
             case 2:
 
+                bundle.putString("name", myStr);
                 People_Fragments peopleFragments = new People_Fragments();
+                peopleFragments.setArguments(bundle);
                 return peopleFragments;
 
             default:
