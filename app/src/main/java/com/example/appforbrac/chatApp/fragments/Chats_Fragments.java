@@ -10,6 +10,9 @@ import androidx.fragment.app.Fragment;
 import com.example.appforbrac.R;
 
 
+
+
+
 /**
  * A simple {@link Fragment} subclass.
  */

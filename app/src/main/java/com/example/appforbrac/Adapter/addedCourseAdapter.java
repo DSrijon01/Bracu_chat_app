@@ -2,6 +2,7 @@ package com.example.appforbrac.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appforbrac.Model.Student;
 import com.example.appforbrac.Model.course;
 import com.example.appforbrac.R;
+import com.example.appforbrac.chatApp.fragments.People_Fragments;
 import com.example.appforbrac.chatApp.main;
 import com.example.appforbrac.whatsApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -84,7 +86,14 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
 
        Intent i = new Intent(mContext, main.class );
         i.putExtra("name",name);
+
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        People_Fragments myFrag = new People_Fragments();
+        myFrag.setArguments(bundle);
         mContext.startActivity(i);
+
+
     }
 
 
