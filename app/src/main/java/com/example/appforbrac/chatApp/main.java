@@ -114,6 +114,7 @@ public class main extends AppCompatActivity {
     }
     private void SendUserToSettingsActivity() {
         Intent SettingIntent = new Intent(main.this, SettingsActivity.class);
+        SettingIntent.putExtra("name",myStr);
         startActivity(SettingIntent);
     }
 }

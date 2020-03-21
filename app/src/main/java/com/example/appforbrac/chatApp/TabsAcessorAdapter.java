@@ -24,20 +24,23 @@ public class TabsAcessorAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        bundle.putString("name", myStr);
         switch (position) {
             case 0:
 
                 Chats_Fragments chatsFragments = new Chats_Fragments();
+                chatsFragments.setArguments(bundle);
                 return chatsFragments;
 
             case 1:
 
                 Groups_Fragments groupsFragments = new Groups_Fragments();
+                groupsFragments.setArguments(bundle);
                 return groupsFragments;
 
             case 2:
 
-                bundle.putString("name", myStr);
+
                 People_Fragments peopleFragments = new People_Fragments();
                 peopleFragments.setArguments(bundle);
                 return peopleFragments;

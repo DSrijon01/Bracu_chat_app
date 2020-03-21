@@ -72,7 +72,7 @@ public class People_Fragments extends Fragment {
 
         test();
         readStd();
-        stdAdapter= new peopleAdapter(  getContext(), stdList);
+        stdAdapter= new peopleAdapter(  getContext(), stdList,myStr);
         recyclerView.setAdapter(stdAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 

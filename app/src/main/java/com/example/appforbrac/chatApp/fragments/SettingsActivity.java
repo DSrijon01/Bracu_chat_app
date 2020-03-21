@@ -162,7 +162,7 @@ public class SettingsActivity extends AppCompatActivity {
         String setStatus = userStatus.getText().toString();
 
         if (TextUtils.isEmpty(setUserName)) {
-            Toast.makeText(this, "Please write your user name first....", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Please write your user name first....", Toast.LENGTH_SHORT).show();
         }
         if (TextUtils.isEmpty(setStatus)) {
             Toast.makeText(this, "Please write your status....", Toast.LENGTH_SHORT).show();
@@ -190,6 +190,10 @@ public class SettingsActivity extends AppCompatActivity {
     {
         Intent mainIntent = new Intent(SettingsActivity.this, main.class);
         mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        Intent i = getIntent();
+        String myStr = i.getStringExtra("name");
+        mainIntent.putExtra("name",myStr);
         startActivity(mainIntent);
         finish();
     }
