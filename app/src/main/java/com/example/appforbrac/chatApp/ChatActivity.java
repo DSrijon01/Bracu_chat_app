@@ -14,10 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.appforbrac.R;
 import com.example.appforbrac.chatApp.Adapter.MessageAdapter;
 import com.example.appforbrac.chatApp.model.Messages;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,7 +44,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity
 {
-    private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID;
+    private String messageReceiverID, messageReceiverName, messageReceiverImage, messageSenderID,myStr;
 
     private TextView userName, userLastSeen;
     private CircleImageView userImage;
@@ -78,14 +80,15 @@ public class ChatActivity extends AppCompatActivity
 
         messageReceiverID = getIntent().getExtras().get("visit_user_id").toString();
         messageReceiverName = getIntent().getExtras().get("visit_user_name").toString();
-        messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
+        myStr = getIntent().getExtras().get("myStr").toString();
+        //messageReceiverImage = getIntent().getExtras().get("visit_image").toString();
 
 
         IntializeControllers();
 
 
-        userName.setText(messageReceiverName);
-        Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
+        //userName.setText("messageReceiverName");
+        //Picasso.get().load(messageReceiverImage).placeholder(R.drawable.profile_image).into(userImage);
 
 
         SendMessageButton.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +100,7 @@ public class ChatActivity extends AppCompatActivity
         });
 
 
-        DisplayLastSeen();
+        //DisplayLastSeen();
     }
 
 
@@ -105,16 +108,11 @@ public class ChatActivity extends AppCompatActivity
 
     private void IntializeControllers()
     {
-        ChatToolBar = (Toolbar) findViewById(R.id.chat_toolbar);
-        setSupportActionBar(ChatToolBar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowCustomEnabled(true);
 
         LayoutInflater layoutInflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View actionBarView = layoutInflater.inflate(R.layout.custom_chat_bar, null);
-        actionBar.setCustomView(actionBarView);
+
 
         userName = (TextView) findViewById(R.id.custom_profile_name);
         userLastSeen = (TextView) findViewById(R.id.custom_user_last_seen);
@@ -125,7 +123,7 @@ public class ChatActivity extends AppCompatActivity
         MessageInputText = (EditText) findViewById(R.id.input_message);
 
         messageAdapter = new MessageAdapter(messagesList);
-        userMessagesList = (RecyclerView) findViewById(R.id.private_messages_list_of_users);
+        userMessagesList = (RecyclerView) findViewById(R.id.messageList);
         linearLayoutManager = new LinearLayoutManager(this);
         userMessagesList.setLayoutManager(linearLayoutManager);
         userMessagesList.setAdapter(messageAdapter);
@@ -183,7 +181,7 @@ public class ChatActivity extends AppCompatActivity
     {
         super.onStart();
 
-        RootRef.child("Messages").child(messageSenderID).child(messageReceiverID)
+        RootRef.child("Courses").child(myStr).child("Messages").child(messageSenderID).child(messageReceiverID)
                 .addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s)
@@ -234,7 +232,7 @@ public class ChatActivity extends AppCompatActivity
             String messageSenderRef = "Messages/" + messageSenderID + "/" + messageReceiverID;
             String messageReceiverRef = "Messages/" + messageReceiverID + "/" + messageSenderID;
 
-            DatabaseReference userMessageKeyRef = RootRef.child("Messages")
+            DatabaseReference userMessageKeyRef = RootRef.child("Courses").child(myStr).child("Messages")
                     .child(messageSenderID).child(messageReceiverID).push();
 
             String messagePushID = userMessageKeyRef.getKey();
@@ -252,7 +250,7 @@ public class ChatActivity extends AppCompatActivity
             messageBodyDetails.put(messageSenderRef + "/" + messagePushID, messageTextBody);
             messageBodyDetails.put( messageReceiverRef + "/" + messagePushID, messageTextBody);
 
-            RootRef.updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
+            RootRef.child("Courses").child(myStr).updateChildren(messageBodyDetails).addOnCompleteListener(new OnCompleteListener() {
                 @Override
                 public void onComplete(@NonNull Task task)
                 {

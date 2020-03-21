@@ -72,7 +72,7 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
         users = FirebaseDatabase.getInstance().getReference().child("Users").child("Students");
 
 
-        reference =  FirebaseDatabase.getInstance().getReference().child("messages").child(userid).child(myStr).child("list").child(std.getId());
+        reference =  FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(userid).child("Courses").child(myStr).child("list").child(std.getId());
 
 
 
