@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/showCourse"
         android:name="com.example.appforbrac.showCourse"
-        android:label="fragment_show_course"
+        android:label="AppForBrac"
         tools:layout="@layout/fragment_show_course" />
     <fragment
         android:id="@+id/addedCourse"
         android:name="com.example.appforbrac.addedCourse"
-        android:label="fragment_added_course"
+        android:label="AppForBrac"
         tools:layout="@layout/fragment_added_course" />
 </navigation>

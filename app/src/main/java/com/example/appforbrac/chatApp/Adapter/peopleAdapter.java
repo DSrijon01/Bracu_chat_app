@@ -1,6 +1,7 @@
 package com.example.appforbrac.chatApp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.appforbrac.Adapter.addedCourseAdapter;
 import com.example.appforbrac.Model.Student;
 import com.example.appforbrac.Model.course;
 import com.example.appforbrac.R;
+import com.example.appforbrac.chatApp.ChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -56,7 +58,7 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
     public void onBindViewHolder(@NonNull peopleAdapter.ViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
        auth = FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser = auth.getCurrentUser();
+        final FirebaseUser firebaseUser = auth.getCurrentUser();
         String userid = firebaseUser.getUid();
         final Student std = mStd.get(position);
 
@@ -72,7 +74,7 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
         users = FirebaseDatabase.getInstance().getReference().child("Users").child("Students");
 
 
-        reference =  FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(userid).child("Courses").child(myStr).child("list").child(std.getId());
+
 
 
 
@@ -82,13 +84,25 @@ public class peopleAdapter extends RecyclerView.Adapter<peopleAdapter.ViewHolder
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String uId = firebaseUser.getUid();
+                reference =  FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(uId).child("Courses").child(myStr).child("list").child(std.getId());
                 HashMap<String, Object> hashMap = new HashMap<>();
                 hashMap.put("id",std.getId());
                 hashMap.put("fullname",std.getFullname());
-                reference.setValue(hashMap);
+                reference.updateChildren(hashMap);
+                goToChat(std);
             }
         });
 
+    }
+
+    private void goToChat(Student std) {
+        Intent intent = new Intent(mContext,  ChatActivity.class);
+        intent.putExtra("visit_user_id", std.getId());
+        intent.putExtra("visit_user_name", std.getFullname());
+        intent.putExtra("myStr", myStr);
+        //intent.putExtra("visit_image", retImage[0]);
+        mContext.startActivity(intent);
     }
 
     @Override

@@ -12,17 +12,12 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.appforbrac.LoginActivity;
 import com.example.appforbrac.R;
-import com.example.appforbrac.chatApp.fragments.SettingsActivity;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.auth.EmailAuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
-
-import static com.example.appforbrac.R.menu.bottom_navigation;
 
 public class main extends AppCompatActivity {
 
@@ -97,10 +92,6 @@ public class main extends AppCompatActivity {
              SendUserToSettingsActivity();
         }
 
-        if (item.getItemId()==R.id.main_find_People) {
-
-
-        }
         return true;
 
     }

@@ -101,8 +101,15 @@ public class People_Fragments extends Fragment {
                 stdList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Student c = snapshot.getValue(Student.class);
-                        stdList.add(c);
 
+                    if(c.getId().equals(userid))
+                    {
+
+                    }
+                    else
+                    {
+                        stdList.add(c);
+                    }
 
 
                 }

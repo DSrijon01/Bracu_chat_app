@@ -44,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
 
        // mToolbar=(Toolbar) findViewById(R.id.main_page_toolbar);
        // setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("BRACU");
+        //getSupportActionBar().setTitle("BRACU");
 
 
 

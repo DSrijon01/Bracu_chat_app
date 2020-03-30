@@ -33,10 +33,10 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
     int stdCount=0;
     String test="Nope";
     Student student;
+    DatabaseReference reference;
     private FirebaseUser firebaseUser;
     public Bundle bundle = new Bundle();
 
-    DatabaseReference reference;
     public addedCourseAdapter(Context mContext, List<course> mCourse)
     {
         this.mContext=mContext;
@@ -53,9 +53,9 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull addedCourseAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull addedCourseAdapter.ViewHolder viewHolder, final int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
+        final String userId = firebaseUser.getUid();
         final course course = mCourse.get(position);
 
         TextView textView = viewHolder.txt;
@@ -63,6 +63,16 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
         ImageView imageView = viewHolder.img;
         test = course.getName();
         Button button = viewHolder.btn;
+        button.setText("Remove Course");
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCourse.remove(position);
+                removeFromDb(course.getName(),userId);
+                notifyDataSetChanged();
+            }
+        });
+
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +82,15 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
         });
 
     }
+
+    private void removeFromDb(String name,String userId) {
+        reference = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(userId).child("Courses").child(name);
+        reference.removeValue();
+
+        reference = FirebaseDatabase.getInstance().getReference().child("Courses").child(name).child("StudentList").child(String.valueOf(userId));
+        reference.removeValue();
+    }
+
     private void test1(String n) {
 
         String name = n;
@@ -115,7 +134,7 @@ public class addedCourseAdapter extends RecyclerView.Adapter<addedCourseAdapter.
             txt= itemView.findViewById(R.id.textView);
             btn = itemView.findViewById(R.id.button);
 
-            btn.setVisibility(itemView.GONE);
+           // btn.setVisibility(itemView.GONE);
 
 
         }

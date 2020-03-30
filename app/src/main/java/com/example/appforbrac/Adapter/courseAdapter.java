@@ -78,6 +78,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         Button button = viewHolder.btn;
        final HashMap<String, Object> hashMap = new HashMap<>();
 
+       button.setText("Add Course");
         viewHolder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

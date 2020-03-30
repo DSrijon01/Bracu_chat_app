@@ -1,4 +1,4 @@
-package com.example.appforbrac.chatApp.fragments;
+package com.example.appforbrac.chatApp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,22 +15,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.appforbrac.R;
-import com.example.appforbrac.chatApp.main;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
-import com.bumptech.glide.Glide;
+
 import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -42,8 +37,8 @@ public class SettingsActivity extends AppCompatActivity {
     private CircleImageView userProfileImage;
     private static final int GalleryPick = 1;
     private StorageReference UserProfileImagesRef;
-    private DatabaseReference Rootref;
-    private ProgressDialog loadingbar;
+    private DatabaseReference RootRef;
+    private ProgressDialog loadingBar;
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private String uid;
 
@@ -53,14 +48,13 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         uid = auth.getCurrentUser().getUid();
-        Rootref = FirebaseDatabase.getInstance().getReference();
+        RootRef = FirebaseDatabase.getInstance().getReference();
 
-        UserProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile Images");
+        UserProfileImagesRef = FirebaseStorage.getInstance().getReference().child("Profile");
 
         Initializefields();
 
         username.setVisibility(View.INVISIBLE);
-        //UpdateAccountSettings.setOnClickListener(UpdateAccountSettings);
         UpdateAccountSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,76 +79,85 @@ public class SettingsActivity extends AppCompatActivity {
         username = (EditText) findViewById(R.id.set_user_name);
         userStatus = (EditText) findViewById(R.id.set_profile_status);
         userProfileImage = (CircleImageView) findViewById(R.id.set_profile_image);
-        loadingbar = new ProgressDialog(this);
+        loadingBar = new ProgressDialog(this);
 
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GalleryPick && resultCode == RESULT_OK && data != null) {
 
+        if (requestCode==GalleryPick  &&  resultCode==RESULT_OK  &&  data!=null)
+        {
             Uri ImageUri = data.getData();
+
             CropImage.activity()
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1, 1)
                     .start(this);
-
         }
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE)
+        {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
-            if (resultCode == RESULT_OK) {
-
-                loadingbar.setTitle("Set Profile image");
-                loadingbar.setMessage("Profile Image Updating");
-                loadingbar.setCanceledOnTouchOutside(false);
-                loadingbar.show();
-
+            if (resultCode == RESULT_OK)
+            {
+                loadingBar.setTitle("Set Profile Image");
+                loadingBar.setMessage("Please wait, your profile image is updating...");
+                loadingBar.setCanceledOnTouchOutside(false);
+                loadingBar.show();
 
                 Uri resultUri = result.getUri();
-                final StorageReference filePath = UserProfileImagesRef.child(uid + ".jpg");
+
+
+                StorageReference filePath = UserProfileImagesRef.child(uid + ".jpg");
+
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
+                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            Toast.makeText(SettingsActivity.this, "Profile Image uploaded Successfully...", Toast.LENGTH_SHORT).show();
 
-                            Toast.makeText(SettingsActivity.this, "Profile Image Uploaded Successfully", Toast.LENGTH_SHORT).show();
+                           // final String downloaedUrl = task.getResult().getDownloadUrl().toString();
 
-                            final String downloadUrl = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
-
-                            Rootref.child("Users").child("Students").child(String.valueOf(uid)).child("image")
-                                    .setValue(downloadUrl)
+                               final String test = task.getResult().getMetadata().getReference().getDownloadUrl().toString();
+                            RootRef.child("Users").child(uid).child("image")
+                                    .setValue(test)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-
-                                                Toast.makeText(SettingsActivity.this, "Image Save in Database, Successfully", Toast.LENGTH_SHORT).show();
-
-
-
-                                                loadingbar.dismiss();
-                                            } else {
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if (task.isSuccessful())
+                                            {
+                                                Toast.makeText(SettingsActivity.this, "Image save in Database, Successfully...", Toast.LENGTH_SHORT).show();
+                                                loadingBar.dismiss();
+                                            }
+                                            else
+                                            {
                                                 String message = task.getException().toString();
-                                                Toast.makeText(SettingsActivity.this, "Error:" + message, Toast.LENGTH_SHORT).show();
-                                                loadingbar.dismiss();
+                                                Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                                                loadingBar.dismiss();
                                             }
                                         }
                                     });
-                        } else {
+                        }
+                        else
+                        {
                             String message = task.getException().toString();
-                            Toast.makeText(SettingsActivity.this, "Error:" + message, Toast.LENGTH_SHORT).show();
-                            loadingbar.dismiss();
+                            Toast.makeText(SettingsActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                            loadingBar.dismiss();
                         }
                     }
                 });
             }
-
         }
-
     }
+
 
 
     private void UpdateSettings() {
@@ -170,7 +173,7 @@ public class SettingsActivity extends AppCompatActivity {
             HashMap<String, Object> profileMap = new HashMap<>();
             //profileMap.put("name", setUserName);
             profileMap.put("status", setStatus);
-            Rootref.child("Users").child("Students").child(uid).updateChildren(profileMap)
+            RootRef.child("Users").child("Students").child(uid).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
