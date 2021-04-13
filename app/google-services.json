@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "224765143033",
+    "firebase_url": "https://bracu-chat.firebaseio.com",
+    "project_id": "bracu-chat",
+    "storage_bucket": "bracu-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:224765143033:android:0b278070a2a32bd4b43f28",
+        "android_client_info": {
+          "package_name": "com.example.appforbrac"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "224765143033-6m1q5gcpkggi4gr0min3m0qnp32gpo2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appforbrac",
+            "certificate_hash": "6eb360743cf8dd3eb0ae563a70e18a7c790bdac1"
+          }
+        },
+        {
+          "client_id": "224765143033-4rh624q0nbma27rauf7u2c971sqjs5vj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQunEAZIEicgNiezyeqGv6MAWeaTFnpsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "224765143033-4rh624q0nbma27rauf7u2c971sqjs5vj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
